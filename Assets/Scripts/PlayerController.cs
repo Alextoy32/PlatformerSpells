@@ -13,9 +13,7 @@ public class PlayerController : MonoBehaviour
     public Transform t;
     public float maxSpeed;
     public float jumpHeight;
-    public Collider2D pCollider;
-
-    LayerMask layerMask = ~(1 << 2 | 1 << 8);
+    public Animator pAnimator;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +37,7 @@ public class PlayerController : MonoBehaviour
                 t.localScale = new Vector3(-Mathf.Abs(t.localScale.x), t.localScale.y, t.localScale.z);
             }
         }
+
     }
 
     void FixedUpdate()
@@ -54,9 +53,17 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (isGrounded)
+        if (isGrounded && context.performed)
         {
             playerBody.velocity = new Vector2(playerBody.velocity.x, jumpHeight);
+        }
+    }
+
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            pAnimator.SetTrigger("Attack");
         }
     }
 
