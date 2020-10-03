@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         playerBody.velocity = new Vector2((moveDirection) * maxSpeed, playerBody.velocity.y);
+        pAnimator.SetFloat("velocityX", playerBody.velocity.x);
     }
 
     public void OnMove(InputAction.CallbackContext context)
